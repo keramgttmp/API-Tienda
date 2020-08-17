@@ -38,6 +38,7 @@ namespace APITienda
 
             //debemos inyectar los scopes para vincular la interfaz de los repositorios
             services.AddScoped < ICategoriaRepository, CategoriaRepository>();
+            services.AddScoped<IProductoRepository, ProductoRepository>();
 
             //añadimos el servicios del AutoMapper
             services.AddAutoMapper(typeof(ModelsMapper));

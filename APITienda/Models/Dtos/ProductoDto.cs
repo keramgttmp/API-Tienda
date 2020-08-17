@@ -5,33 +5,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace APITienda.Models
+namespace APITienda.Models.Dtos
 {
-    public class Producto
+    public class ProductoDto
     {
-        [Key]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(50, MinimumLength = 10)]
+        [Required (ErrorMessage = "La descripción es obligatorio y debe tener mas de 10 caracteres")]
         public string Descripcion { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "La cantidad es obligatoria y debe ser mayor o igual a 0")]
         public int Cantidad { get; set; }
 
-        [Required]
-        [DataType(DataType.Currency)]
-        [Column(TypeName = "decimal(18,2)")]
+        [Required(ErrorMessage = "El precio es obligatorio y debe ser mayor o igual a 0")]
+
         public decimal Precio { get; set; }
 
-        [Required]
         public DateTime FechaCreacion { get; set; }
 
         public DateTime? FechaActualizacion { get; set; }
 
         //FK de Producto a Categoria
+        [Required(ErrorMessage = "La categoria es obligatoria")]
         public int CategoriaId { get; set; }
-        [ForeignKey("CategoriaId")]
         public Categoria Categoria { get; set; }
 
     }

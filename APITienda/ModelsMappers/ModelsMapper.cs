@@ -14,7 +14,8 @@ namespace APITienda.ModelsMappers
         public ModelsMapper()
         {
             //Se debe hacer un CreateMap para cada entidad
-            CreateMap<Categoria, CategoriaDto>().ReverseMap();    
+            CreateMap<Categoria, CategoriaDto>().ReverseMap();
+            CreateMap<Producto, ProductoDto>().ReverseMap();
         }
     }
 }
