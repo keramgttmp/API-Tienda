@@ -36,7 +36,7 @@ namespace APITienda.Controllers
 
             var listaProductoDto = new List<ProductoDto>();
 
-            foreach ( var lista in listaProducto)
+            foreach (var lista in listaProducto)
             {
                 //cargamos la lista dto con los datos del modelo según el Mapper para Producto
                 listaProductoDto.Add(_productoMapper.Map<ProductoDto>(lista));
@@ -50,14 +50,13 @@ namespace APITienda.Controllers
         /*Microsoft.AspNetCore.Routing.Matching.AmbiguousMatchException: The request matched multiple endpoints. Matches: 
         APITienda.Controllers.CategoriaController.GetCategoria (APITienda)
         APITienda.Controllers.CategoriaController.GetCategoria (APITienda)*/
-
         public IActionResult GetProducto(int id)
         {
             //buscamos el producto por le id
             var itemProducto = _productoRepository.GetProducto(id);
 
             //si no se encuentre se regresa error
-            if ( itemProducto == null) 
+            if (itemProducto == null)
             {
                 return NotFound("Producto no encontrado");
             }
@@ -67,6 +66,22 @@ namespace APITienda.Controllers
             var itemProductoDto = _productoMapper.Map<ProductoDto>(itemProducto);
 
             return Ok(itemProductoDto);
+        }
+
+        [HttpGet("BuscarPorCategoria")]
+        public IActionResult ObtenerProductoPorCategoria(int categoriaId)
+        {
+            var listaProducto = _productoRepository.GetProductoPorCategoria(categoriaId);
+
+            var listaProductoDto = new List<ProductoDto>();
+
+            foreach (var lista in listaProducto)
+            {
+                //Cargamos la lista DTO con los datos según el mapper realizado en ModelsMapper 
+                //para la entidad Categoria
+                listaProductoDto.Add(_productoMapper.Map<ProductoDto>(lista));
+            }
+            return Ok(listaProductoDto);
         }
 
         [HttpPost]
