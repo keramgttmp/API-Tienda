@@ -52,6 +52,15 @@ namespace APITienda
             //
             services.AddControllers();
 
+            /*Damos soporte para CORS*/
+            services.AddCors(options => options.AddDefaultPolicy(builder => {
+
+                // Fluent API
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,12 +85,17 @@ namespace APITienda
 
             app.UseRouting();
 
+            /*Damos soporte para CORS
+             DEspues del Routing y antes de UseAuthorization*/
+            app.UseCors();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
