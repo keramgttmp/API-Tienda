@@ -132,4 +132,3 @@ C:\Cenfotec\CursoRESTfulWebAPIsNETCore\Proyecto\APITienda\obj\Debug\netcoreapp3.
 C:\Cenfotec\CursoRESTfulWebAPIsNETCore\Proyecto\APITienda\obj\Debug\netcoreapp3.1\APITienda.dll
 C:\Cenfotec\CursoRESTfulWebAPIsNETCore\Proyecto\APITienda\obj\Debug\netcoreapp3.1\APITienda.pdb
 C:\Cenfotec\CursoRESTfulWebAPIsNETCore\Proyecto\APITienda\obj\Debug\netcoreapp3.1\APITienda.genruntimeconfig.cache
-C:\Cenfotec\CursoRESTfulWebAPIsNETCore\Proyecto\APITienda\obj\Debug\netcoreapp3.1\APITienda.csprojAssemblyReference.cache
