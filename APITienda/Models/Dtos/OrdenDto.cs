@@ -5,11 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace APITienda.Models
+namespace APITienda.Models.Dtos
 {
-    public class Orden
+    public class OrdenDto
     {
-        [Key]
         public int Id { get; set; }
 
         [Required]

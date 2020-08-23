@@ -18,6 +18,7 @@ namespace APITienda.ModelsMappers
             CreateMap<Producto, ProductoDto>().ReverseMap();
             CreateMap<Cliente, ClienteDto>().ReverseMap();
             CreateMap<OpinionProducto, OpinionProductoDto>().ReverseMap();
+            CreateMap<Orden, OrdenDto>().ReverseMap();
         }
     }
 }
