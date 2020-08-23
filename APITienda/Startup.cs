@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using APITienda.Data;
+using APITienda.Models;
 using APITienda.ModelsMappers;
 using APITienda.Repository;
 using APITienda.Repository.IRepository;
@@ -40,6 +41,7 @@ namespace APITienda
             services.AddScoped < ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<IProductoRepository, ProductoRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IOpinionProductoRepository, OpinionProductoRepository>();
 
             //añadimos el servicios del AutoMapper
             services.AddAutoMapper(typeof(ModelsMapper));

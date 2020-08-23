@@ -65,7 +65,6 @@ namespace APITienda.Repository
 
         public ICollection<Producto> GetProductoPorCategoria(int categoriaId)
         {
-            //var lista = _DbContext.Producto.Include("Categoria").Where (ca => ca.Id== categoriaId).ToList();
             var lista = _DbContext.Producto.Where(p => p.CategoriaId == categoriaId).ToList();
             return (lista);
         }
