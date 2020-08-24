@@ -25,7 +25,7 @@ namespace APITienda.Models.Dtos
         [StringLength(1)]
         //Solo permite P=Pendiente A=Activa E=Eliminada
         [RegularExpression(@"[P,A,E]")]
-        public char Estado { get; set; }
+        public string Estado { get; set; }
 
         [Required]
         public DateTime FechaCreacion { get; set; }

@@ -43,6 +43,7 @@ namespace APITienda
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IOpinionProductoRepository, OpinionProductoRepository>();
             services.AddScoped<IOrdenRepository, OrdenRepository>();
+            services.AddScoped<IDetalleOrdenRepository, DetalleOrdenRepository>();
 
             //añadimos el servicios del AutoMapper
             services.AddAutoMapper(typeof(ModelsMapper));

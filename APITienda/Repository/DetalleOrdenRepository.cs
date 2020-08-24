@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace APITienda.Repository
 {
-    public class OrdenRepository : IOrdenRepository
+    public class DetalleOrdenRepository : IDetalleOrdenRepository
     {
         // Para instanciar el contexto de la base de datos
         private readonly ApplicationDbContext _DbContext;
 
-        public OrdenRepository(ApplicationDbContext dbContext)
+        public DetalleOrdenRepository(ApplicationDbContext dbContext)
         {
             //paso el valor del contexto por parámetro y así lo puedo usar en la clase.
             _DbContext = dbContext;
         }
-        public bool ActualizarOrden(Orden orden)
+        public bool ActualizarDetalle(DetalleOrden detalle)
         {
-            _DbContext.Orden.Update(orden);
+            _DbContext.DetalleOrden.Update(detalle);
             return Guardar();
         }
 
@@ -30,37 +30,31 @@ namespace APITienda.Repository
             return Guardar();
         }*/
 
-        public bool CrearOrden(Orden orden)
+        public bool CrearDetalle(DetalleOrden detalle)
         {
-            _DbContext.Orden.Add(orden);
+            _DbContext.DetalleOrden.Add(detalle);
             return Guardar();
         }
 
-        public bool ExisteOrden(int id)
+        public bool ExisteDetalle(int id)
         {
-            bool resultado = _DbContext.Orden.Any(c => c.Id == id);
+            bool resultado = _DbContext.DetalleOrden.Any(c => c.Id == id);
             return resultado;
         }
 
-        public bool ExisteOrdenPendiente(string estado)
+        public ICollection<DetalleOrden> GetDetalle()
         {
-            bool resultado = _DbContext.Orden.Any(c => c.Estado == "P");
-            return resultado;
+            return _DbContext.DetalleOrden.OrderBy(c => c.Id).ToList();
         }
 
-        public ICollection<Orden> GetOrden()
+        public DetalleOrden GetDetalle(int id)
         {
-            return _DbContext.Orden.OrderBy(c => c.Id).ToList();
-        }
-
-        public Orden GetOrden(int id)
-        {
-            return _DbContext.Orden.FirstOrDefault(c => c.Id == id);
+            return _DbContext.DetalleOrden.FirstOrDefault(c => c.Id == id);
         }
 
         public bool Guardar()
         {
             return _DbContext.SaveChanges() >= 0 ? true : false;
         }
-    }
+    };
 }

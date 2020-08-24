@@ -6,11 +6,10 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
-namespace APITienda.Models
+namespace APITienda.Models.Dtos
 {
-    public class DetalleOrden
+    public class DetalleOrdenDto
     {
-        [Key]
         public int Id { get; set; }
 
         [Required]
