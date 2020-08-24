@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="estilo.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="topnav">
+        <a href="#" onclick="fVerCategoria()">Categorías</a>
+        <a href="#" onclick="fVerProducto()">Productos</a>
+        <a href="#">Órdenes</a>
+        <div class="topnav-right">
+          <a href="#" onclick="fVerCliente()">Usuarios</a>
+          <a href="#about">Acerca de...</a>
+        </div>
+      </div>
+    </header>
+    <div>
+      <div class="main container">
+        <h1 id="Titulo">Listado de las categorías disponibles en la tienda.</h1>
+        <p></p>
+        <div class="form-group">
+          <label for="nombre"
+            >Puede realizar una búsqueda mas específica filtrando por la
+            descripción de la categoría.</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="nombre"
+            id="nombre"
+            placeholder="Ingrese su nombre"
+          />
+        </div>
+        <button class="btn btn-dark" onclick="fVerCategoria()">
+          Aplicar filtro
+        </button>
+        <p>
+          Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum
+          definitiones no quo, maluisset concludaturque et eum, altera fabulas
+          ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum.
+          Affert laboramus repudiandae nec et. Inciderint efficiantur his ad.
+          Eum no molestiae voluptatibus.
+        </p>
+        <!--Tabla-->
+
+        <table class="container table table-striped">
+          <thead id="TablaEncabezado" class="thead-dark"></thead>
+          <tbody id="TablaDetalle"></tbody>
+        </table>
+      </div>
+    </div>
+    <!--Scripts-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="logica.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
