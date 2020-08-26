@@ -6,6 +6,10 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
     <link rel="stylesheet" href="estilo.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -26,23 +30,24 @@
     <div>
       <div class="main container">
         <h1 id="Titulo">Listado de las categorías disponibles en la tienda.</h1>
-        <p></p>
-        <div class="form-group">
-          <label for="nombre"
-            >Puede realizar una búsqueda mas específica filtrando por la
-            descripción de la categoría.</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            name="nombre"
-            id="nombre"
-            placeholder="Ingrese su nombre"
-          />
+        <div id="filtro">
+          <div class="form-group">
+            <label for="nombre"
+              >Puede realizar una búsqueda mas específica filtrando por la
+              descripción de la categoría.</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              name="nombre"
+              id="nombre"
+              placeholder="Ingrese su nombre"
+            />
+          </div>
+          <button class="btn btn-dark" onclick="fVerCategoria()">
+            Aplicar filtro
+          </button>
         </div>
-        <button class="btn btn-dark" onclick="fVerCategoria()">
-          Aplicar filtro
-        </button>
         <p>
           Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum
           definitiones no quo, maluisset concludaturque et eum, altera fabulas
@@ -58,10 +63,59 @@
         </table>
       </div>
     </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 id="titulomodal" class="modal-title">Modal Heading</h4>
+
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div id=modalcontenido>
+              <p id="Producto"></p>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <div class="icon-bar">
+              <a href="#"><i class="fa fa-cart-plus" aria-hidden="true"></i> Comprar</i></a> 
+              <a href="#"><i class="fa fa-commenting" aria-hidden="true"></i> Comentar </i></a>
+            </div>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!--Scripts-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="logica.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <script>
+      // Get the modal
+      var modal = document.getElementById("modal");
+      
+           
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+     
+     
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+      
+      </script>
   </body>
 </html>

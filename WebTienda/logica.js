@@ -4,16 +4,18 @@ function fVerCategoria() {
     .then(function (response) {
       console.log(response);
       console.log(response.data);
+      var vFiltro = document.querySelector("#filtro");
+      $(vFiltro).show();
       /*Formatea el encabezado de la tabla*/
-      var Titulo = document.querySelector("#Titulo");
-      Titulo.textContent = "Listado de Categorías disponibles en la Tienda.";
-      var TablaEncabezado = document.querySelector("#TablaEncabezado");
-      TablaEncabezado.innerHTML =
+      var vTitulo = document.querySelector("#Titulo");
+      vTitulo.textContent = "Listado de Categorías disponibles en la Tienda.";
+      var vTablaEncabezado = document.querySelector("#TablaEncabezado");
+      vTablaEncabezado.innerHTML =
         "<tr><th>Id</th><th>Descripción</th><th>Fec.Creación</th><th>Fec.Actualiz.</th><th>Acción</th></tr>";
 
       /*Llena el detalle de la tabla*/
-      var Tabla = document.querySelector("#TablaDetalle");
-      Tabla.innerHTML = "";
+      var vTabla = document.querySelector("#TablaDetalle");
+      vTabla.innerHTML = "";
       for (let vItem of response.data) {
         console.log(vItem.descripcion);
         var vFechaActualizacion = vItem.fechaActualizacion;
@@ -34,7 +36,7 @@ function fVerCategoria() {
             String.fromCharCode(34) +
             ">Modificar</button>"
         );
-        Tabla.innerHTML +=
+        vTabla.innerHTML +=
           "<tr>" +
           "<th>" +
           vItem.id +
@@ -75,16 +77,18 @@ function fVerProducto() {
     .then(function (response) {
       console.log(response);
       console.log(response.data);
+      var vFiltro = document.querySelector("#filtro");
+      $(vFiltro).hide();
       /*Formatea el encabezado de la tabla*/
-      var Titulo = document.querySelector("#Titulo");
-      Titulo.textContent = "Listado de Productos disponibles en la Tienda.";
-      var TablaEncabezado = document.querySelector("#TablaEncabezado");
-      TablaEncabezado.innerHTML =
+      var vTitulo = document.querySelector("#Titulo");
+      vTitulo.textContent = "Listado de Productos disponibles en la Tienda.";
+      var vTablaEncabezado = document.querySelector("#TablaEncabezado");
+      vTablaEncabezado.innerHTML =
         "<tr><th>Id</th><th>Descripción</th><th>Fec.Creación</th><th>Fec.Actualiz.</th><th>Acción</th></tr>";
 
       /*Llena el detalle de la tabla*/
-      var Tabla = document.querySelector("#TablaDetalle");
-      Tabla.innerHTML = "";
+      var vTabla = document.querySelector("#TablaDetalle");
+      vTabla.innerHTML = "";
       for (let vItem of response.data) {
         console.log(vItem.descripcion);
         var vFechaActualizacion = vItem.fechaActualizacion;
@@ -105,7 +109,7 @@ function fVerProducto() {
             String.fromCharCode(34) +
             ">Modificar</button>"
         );
-        Tabla.innerHTML +=
+        vTabla.innerHTML +=
           "<tr>" +
           "<th>" +
           vItem.id +
@@ -126,11 +130,11 @@ function fVerProducto() {
           String.fromCharCode(34) +
           " onclick=" +
           String.fromCharCode(34) +
-          "fVerArticulosPorCategoria(" +
+          "fVerProductoPorId(" +
           vItem.id +
           ")" +
           String.fromCharCode(34) +
-          ">Modificar</button>" +
+          ">Ver Detalle</button>" +
           "</tr>";
       }
     })
@@ -140,15 +144,15 @@ function fVerProducto() {
     .then(function () {});
 }
 
-function fObtenerDescripcionCategoria(pCategoriaId) {
+function fObtenerDescripcionCategoria(pCategoriaId, pTitulo) {
   axios
-    .get("https://localhost:44318/api/Categoria/"+pCategoriaId)
+    .get("https://localhost:44318/api/Categoria/" + pCategoriaId)
     .then(function (response) {
       console.log(response);
       console.log(response.data.descripcion);
       var Descripcion = response.data.descripcion;
-      return Descripcion;
-    })
+      pTitulo.textContent += Descripcion;
+         })
     .catch(function (error) {
       console.log(error);
     })
@@ -164,18 +168,30 @@ function fVerProductosPorCategoria(pCategoriaId) {
     .then(function (response) {
       console.log(response);
       console.log(response.data);
-      /*Formatea el encabezado de la tabla*/
-      var DescripcionCategoria = fObtenerDescripcionCategoria(pCategoriaId);
-      var Titulo = document.querySelector("#Titulo");
-      Titulo.textContent = "Listado de Productos disponibles en la Tienda. " + DescripcionCategoria;
-      var TablaEncabezado = document.querySelector("#TablaEncabezado");
-      TablaEncabezado.innerHTML =
-        "<tr><th>Id</th><th>Descripción</th><th>Fec.Creación</th><th>Fec.Actualiz.</th><th>Acción</th></tr>";
 
-      /*Llena el detalle de la tabla*/
-      var Tabla = document.querySelector("#TablaDetalle");
-      Tabla.innerHTML = "";
+      var vControl = 0;
       for (let vItem of response.data) {
+        if (vControl == 0) {
+          var vFiltro = document.querySelector("#filtro");
+          $(vFiltro).hide();
+          /*Formatea el encabezado de la tabla*/
+          var vTitulo = document.querySelector("#Titulo");
+          var vDescripcionCategoria = fObtenerDescripcionCategoria(
+            pCategoriaId,
+            vTitulo
+          );
+          /*vTitulo.textContent =
+            "Listado de Productos disponibles en la Tienda. " +
+            DescripcionCategoria;*/
+          var vTablaEncabezado = document.querySelector("#TablaEncabezado");
+          vTablaEncabezado.innerHTML =
+            "<tr><th>Id</th><th>Descripción</th><th>Fec.Creación</th><th>Fec.Actualiz.</th><th>Acción</th></tr>";
+
+          /*Llena el detalle de la tabla*/
+          var vTabla = document.querySelector("#TablaDetalle");
+          vTabla.innerHTML = "";
+          vControl = 1;
+        }
         console.log(vItem.descripcion);
         var vFechaActualizacion = vItem.fechaActualizacion;
         if (vFechaActualizacion == null) {
@@ -195,7 +211,7 @@ function fVerProductosPorCategoria(pCategoriaId) {
             String.fromCharCode(34) +
             ">Modificar</button>"
         );
-        Tabla.innerHTML +=
+        vTabla.innerHTML +=
           "<tr>" +
           "<th>" +
           vItem.id +
@@ -216,13 +232,40 @@ function fVerProductosPorCategoria(pCategoriaId) {
           String.fromCharCode(34) +
           " onclick=" +
           String.fromCharCode(34) +
-          "VerArticulosPorCategoria(" +
+          "fVerProductoPorId(" +
           vItem.id +
           ")" +
           String.fromCharCode(34) +
-          ">Modificar</button>" +
+          ">Ver Detalle</button>" +
           "</tr>";
       }
+      if (vControl == 0) {
+        alert("Esta categoría no tiene productos asociados");
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    .then(function () {});
+}
+
+function fVerProductoPorId(pProductoId) {
+  axios
+    .get("https://localhost:44318/api/Producto/" + pProductoId)
+    .then(function (response) {
+      var vComillas =  String.fromCharCode(34);
+      var vModal = document.getElementById("modal");
+      modal.style.display = "block";
+      var vTituloModal =document.getElementById("titulomodal");
+      vTituloModal.innerText = response.data.descripcion;
+      var vContenidoModal = document.getElementById("modalcontenido");
+    
+      vContenidoModal.innerHTML = "<ul class="+vComillas+"price"+vComillas+">"+
+      "<li class="+vComillas+"grey"+vComillas+">$"+response.data.precio+"</li>" +
+      "<li>Cant.Dispon. "+response.data.cantidad+"</li>" +
+      "<li>dsds</li>" +
+      "<li>1GB Bandwidth</li>" +
+      "</ul>";
     })
     .catch(function (error) {
       console.log(error);
@@ -234,18 +277,18 @@ function fVerCliente() {
   axios
     .get("https://localhost:44318/api/Cliente")
     .then(function (response) {
-      console.log(response);
-      console.log(response.data);
+      var vFiltro = document.querySelector("#filtro");
+      $(vFiltro).hide();
       /*Formatea el encabezado de la tabla*/
-      var Titulo = document.querySelector("#Titulo");
-      Titulo.textContent = "Listado de Clientes de la Tienda.";
-      var TablaEncabezado = document.querySelector("#TablaEncabezado");
-      TablaEncabezado.innerHTML =
+      var vTitulo = document.querySelector("#Titulo");
+      vTitulo.textContent = "Listado de Clientes de la Tienda.";
+      var vTablaEncabezado = document.querySelector("#TablaEncabezado");
+      vTablaEncabezado.innerHTML =
         "<tr><th>Id</th><th>Nombre</th><th>Fec.Creación</th><th>Fec.Actualiz.</th><th>Acción</th></tr>";
 
       /*Llena el detalle de la tabla*/
-      var Tabla = document.querySelector("#TablaDetalle");
-      Tabla.innerHTML = "";
+      var vTabla = document.querySelector("#TablaDetalle");
+      vTabla.innerHTML = "";
       for (let vItem of response.data) {
         console.log(vItem.descripcion);
         var vFechaActualizacion = vItem.fechaActualizacion;
@@ -266,7 +309,7 @@ function fVerCliente() {
             String.fromCharCode(34) +
             ">Modificar</button>"
         );
-        Tabla.innerHTML +=
+        vTabla.innerHTML +=
           "<tr>" +
           "<th>" +
           vItem.id +
