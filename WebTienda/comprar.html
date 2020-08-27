@@ -18,18 +18,15 @@
   <body>
     <header>
       <div class="topnav">
-        <a href="#" onclick="fVerCategoria()">Categorías</a>
-        <a href="#" onclick="fVerProducto()">Productos</a>
-        <a href="#">Órdenes</a>
+        <a href="indice.html" onclick="fVerCategoria()"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Regresar</a>
         <div class="topnav-right">
-          <a href="#" onclick="fVerCliente()">Usuarios</a>
           <a href="#about">Acerca de...</a>
         </div>
       </div>
     </header>
     <div>
       <div class="main container">
-        <h1 id="Titulo">Listado de las categorías disponibles en la tienda.</h1>
+        <h1 id="Titulo">Compra de Productos</h1>
         <div id="filtro">
           <div class="form-group">
             <label for="nombre"
@@ -44,9 +41,6 @@
               placeholder="Ingrese su nombre"
             />
           </div>
-          <button class="btn btn-dark" onclick="fVerCategoria()">
-            Aplicar filtro
-          </button>
         </div>
         <p>
           Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum
@@ -55,43 +49,15 @@
           Affert laboramus repudiandae nec et. Inciderint efficiantur his ad.
           Eum no molestiae voluptatibus.
         </p>
-        <!--Tabla-->
-
-        <table class="container table table-striped">
-          <thead id="TablaEncabezado" class="thead-dark"></thead>
-          <tbody id="TablaDetalle"></tbody>
-        </table>
       </div>
     </div>
-
-    <!-- The Modal -->
-    <div class="modal" id="modal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 id="titulomodal" class="modal-title">Modal Heading</h4>
-
-          </div>
-
-          <!-- Modal body -->
-          <div class="modal-body">
-            <div id=modalcontenido>
-              <p id="Producto"></p>
-            </div>
-          </div>
-
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <div id="iconbar" class="icon-bar">
-            </div>
-            <button type="button" class="close" data-dismiss="modal">
-              &times;
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <input id="id1" type="number" min="100" max="300" required>
+    <label for="country">Country</label>
+    <select id="country" name="country">
+      <option value="australia">Australia</option>
+      <option value="canada">Canada</option>
+      <option value="usa">USA</option>
+    </select>
 
     <!--Scripts-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -100,20 +66,5 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-    <script>
-      // Get the modal
-      var modal = document.getElementById("modal");
-      
-           
-      // Get the <span> element that closes the modal
-      var span = document.getElementsByClassName("close")[0];
-     
-     
-      // When the user clicks on <span> (x), close the modal
-      span.onclick = function() {
-        modal.style.display = "none";
-      }
-      
-      </script>
   </body>
 </html>

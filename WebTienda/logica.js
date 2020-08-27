@@ -152,7 +152,7 @@ function fObtenerDescripcionCategoria(pCategoriaId, pTitulo) {
       console.log(response.data.descripcion);
       var Descripcion = response.data.descripcion;
       pTitulo.textContent += Descripcion;
-         })
+    })
     .catch(function (error) {
       console.log(error);
     })
@@ -253,19 +253,77 @@ function fVerProductoPorId(pProductoId) {
   axios
     .get("https://localhost:44318/api/Producto/" + pProductoId)
     .then(function (response) {
-      var vComillas =  String.fromCharCode(34);
+      var vComillas = String.fromCharCode(34);
       var vModal = document.getElementById("modal");
+      var vIconBar = document.getElementById("iconbar");
       modal.style.display = "block";
-      var vTituloModal =document.getElementById("titulomodal");
+      var vTituloModal = document.getElementById("titulomodal");
       vTituloModal.innerText = response.data.descripcion;
       var vContenidoModal = document.getElementById("modalcontenido");
-    
-      vContenidoModal.innerHTML = "<ul class="+vComillas+"price"+vComillas+">"+
-      "<li class="+vComillas+"grey"+vComillas+">$"+response.data.precio+"</li>" +
-      "<li>Cant.Dispon. "+response.data.cantidad+"</li>" +
-      "<li>dsds</li>" +
-      "<li>1GB Bandwidth</li>" +
-      "</ul>";
+
+      vContenidoModal.innerHTML =
+        "<ul class=" +
+        vComillas +
+        "price" +
+        vComillas +
+        ">" +
+        "<li class=" +
+        vComillas +
+        "grey" +
+        vComillas +
+        ">$" +
+        response.data.precio +
+        "</li>" +
+        "<li>Cant.Dispon. " +
+        response.data.cantidad +
+        "</li>" +
+
+        "<li>Quiero " + "<input id="+
+        vComillas +"cantidad"+
+        vComillas +" type="+
+        vComillas +"number"+
+        vComillas +" min="+
+        vComillas +"1"+
+        vComillas +" max="+
+        vComillas +response.data.cantidad+
+        vComillas +" required></input>"+
+        "</li>" +
+
+        "</ul>";
+
+      /*arma el barra de íconos del footer en la modal*/
+      vIconBar.innerHTML = "";
+      vIconBar.innerHTML =
+        "<a href=" +
+        vComillas +
+        "#" +
+        vComillas +
+        " onclick="+
+        vComillas +"fVerCliente()"+
+        vComillas +" ><i class=" +
+        vComillas +
+        "fa fa-cart-plus" +
+        vComillas +
+        " aria-hidden=" +
+        vComillas +
+        "true" +
+        vComillas +
+        "></i> Comprar</i></a>" +
+        "<a href=" +
+        vComillas +
+        "#" +
+        vComillas +
+        " onclick="+
+        vComillas +"fVerCliente()"+
+        vComillas +" ><i class=" +
+        vComillas +
+        "fa fa-commenting" +
+        vComillas +
+        " aria-hidden=" +
+        vComillas +
+        "true" +
+        vComillas +
+        "></i> Comentar </i></a>";
     })
     .catch(function (error) {
       console.log(error);
