@@ -16,13 +16,15 @@ namespace APITienda.Controllers
     public class OrdenController : Controller
     {
         private readonly IOrdenRepository _ordenRepository;
+        private readonly IClienteRepository _clienteRepository;
 
         //instanciamos el mapper para no acceder el modelo directamente
         private readonly IMapper _ordenMapper;
 
-        public OrdenController(IOrdenRepository ordenRepository, IMapper ordenMapper)
+        public OrdenController(IOrdenRepository ordenRepository, IClienteRepository clienteRepository, IMapper ordenMapper)
         {
             _ordenRepository = ordenRepository;
+            _clienteRepository = clienteRepository;
             _ordenMapper = ordenMapper;
         }
 
@@ -76,6 +78,15 @@ namespace APITienda.Controllers
             //si es nulo regresa error
             if (ordenDto == null)
             { return BadRequest(ModelState); }
+
+            //Verifico si existe el cliente
+            if (!_clienteRepository.ExisteCliente(ordenDto.ClienteId))
+            {
+                //Carga el mensaje error y lo devuelve
+                ModelState.AddModelError("", $"El cliente con el id {ordenDto.ClienteId} no existe");
+                return StatusCode(404, ModelState);
+
+            }
 
             //Valida si ya existe una orden con esa misma descripción
             if (_ordenRepository.ExisteOrden(ordenDto.Id))

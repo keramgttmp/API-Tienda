@@ -28,7 +28,6 @@ namespace APITienda.Controllers
 
         [HttpGet]
         [Produces(typeof(ProductoDto))]
-
         public IActionResult GetProducto()
         {
             var listaProducto = _productoRepository.GetProducto();

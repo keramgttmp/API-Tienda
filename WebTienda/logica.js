@@ -249,6 +249,7 @@ function fVerProductosPorCategoria(pCategoriaId) {
     .then(function () {});
 }
 
+//Muestra los productos filtrado por el id, dentro de una modal
 function fVerProductoPorId(pProductoId) {
   axios
     .get("https://localhost:44318/api/Producto/" + pProductoId)
@@ -277,18 +278,25 @@ function fVerProductoPorId(pProductoId) {
         "<li>Cant.Dispon. " +
         response.data.cantidad +
         "</li>" +
-
-        "<li>Quiero " + "<input id="+
-        vComillas +"cantidad"+
-        vComillas +" type="+
-        vComillas +"number"+
-        vComillas +" min="+
-        vComillas +"1"+
-        vComillas +" max="+
-        vComillas +response.data.cantidad+
-        vComillas +" required></input>"+
+        "<li>Quiero " +
+        "<input id=" +
+        vComillas +
+        "cantidad" +
+        vComillas +
+        " type=" +
+        vComillas +
+        "number" +
+        vComillas +
+        " min=" +
+        vComillas +
+        "1" +
+        vComillas +
+        " max=" +
+        vComillas +
+        response.data.cantidad +
+        vComillas +
+        " required></input>" +
         "</li>" +
-
         "</ul>";
 
       /*arma el barra de íconos del footer en la modal*/
@@ -298,9 +306,11 @@ function fVerProductoPorId(pProductoId) {
         vComillas +
         "#" +
         vComillas +
-        " onclick="+
-        vComillas +"fVerCliente()"+
-        vComillas +" ><i class=" +
+        " onclick=" +
+        vComillas +
+        "fComprarProducto()" +
+        vComillas +
+        " ><i class=" +
         vComillas +
         "fa fa-cart-plus" +
         vComillas +
@@ -308,7 +318,7 @@ function fVerProductoPorId(pProductoId) {
         vComillas +
         "true" +
         vComillas +
-        "></i> Comprar</i></a>" +
+        "></i> Comprar</i></a>"; /* +
         "<a href=" +
         vComillas +
         "#" +
@@ -323,7 +333,7 @@ function fVerProductoPorId(pProductoId) {
         vComillas +
         "true" +
         vComillas +
-        "></i> Comentar </i></a>";
+        "></i> Comentar </i></a>";*/
     })
     .catch(function (error) {
       console.log(error);
@@ -348,25 +358,11 @@ function fVerCliente() {
       var vTabla = document.querySelector("#TablaDetalle");
       vTabla.innerHTML = "";
       for (let vItem of response.data) {
-        console.log(vItem.descripcion);
         var vFechaActualizacion = vItem.fechaActualizacion;
         if (vFechaActualizacion == null) {
           vFechaActualizacion = "";
         }
 
-        console.log(
-          "<button class=" +
-            String.fromCharCode(34) +
-            "btn btn-dark" +
-            String.fromCharCode(34) +
-            " onclick=" +
-            String.fromCharCode(34) +
-            "VerArticulosPorCategoria(" +
-            vItem.id +
-            ")" +
-            String.fromCharCode(34) +
-            ">Modificar</button>"
-        );
         vTabla.innerHTML +=
           "<tr>" +
           "<th>" +
@@ -392,11 +388,11 @@ function fVerCliente() {
           String.fromCharCode(34) +
           " onclick=" +
           String.fromCharCode(34) +
-          "VerArticulosPorCategoria(" +
+          "fEditarCliente(" +
           vItem.id +
           ")" +
           String.fromCharCode(34) +
-          ">Modificar</button>" +
+          ">Editar</button>" +
           "</tr>";
       }
     })
@@ -431,6 +427,49 @@ function getByIdRequest() {
     })
     .catch(function (error) {
       console.log(error);
+    })
+    .then(function () {});
+}
+
+function fComprarProducto() {
+  var vNumeroOrden = 0;
+  //Post del encabezado de la orden
+  axios
+    .post("https://localhost:44318/api/Orden", {
+        "fecha": "2020-08-29T04:41:28.227Z",
+        "clienteId": 2,
+        "montoTotal": 2500,
+        "estado": "A",
+        "fechaCreacion": "2020-08-29T04:41:28.227Z"    
+    })
+    .then(function (response) {
+      console.log(response);
+      vNumeroOrden = response.data.id;
+      console.log("1 ORden creada " + vNumeroOrden);
+      
+      // Post del detalle de la orden
+      axios
+        .post("https://localhost:44318/api/DetalleOrden", {
+          
+            "ordenId": vNumeroOrden,
+            "productoId": 2,
+            "cantidadDetalle": 1,
+            "precioDetalle": 2500,
+            "fechaCreacion": "2020-08-29T04:54:01.373Z"
+                })
+        .then(function (response) {
+          console.log(response);
+          vNumeroOrden = response.data.id;
+          console.log("2 ORden creada " + vNumeroOrden);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .then(function () {});
+      /**/
+    })
+    .catch(function (error) {
+      console.log(error.message);
     })
     .then(function () {});
 }
