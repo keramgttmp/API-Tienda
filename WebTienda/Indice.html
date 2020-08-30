@@ -7,9 +7,9 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-  />
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="estilo.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -20,7 +20,7 @@
       <div class="topnav">
         <a href="#" onclick="fVerCategoria()">Categorías</a>
         <a href="#" onclick="fVerProducto()">Productos</a>
-        <a href="#">Órdenes</a>
+        <a href="#" onclick="fVerOrdenes()">Órdenes</a>
         <div class="topnav-right">
           <a href="#" onclick="fVerCliente()">Usuarios</a>
           <a href="#about">Acerca de...</a>
@@ -48,15 +48,14 @@
             Aplicar filtro
           </button>
         </div>
-        <p>
+        <p id="textogeneral">
           Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum
           definitiones no quo, maluisset concludaturque et eum, altera fabulas
           ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum.
           Affert laboramus repudiandae nec et. Inciderint efficiantur his ad.
           Eum no molestiae voluptatibus.
         </p>
-        <!--Tabla-->
-
+        <!--Inicio de Tabla-->
         <table class="container table table-striped">
           <thead id="TablaEncabezado" class="thead-dark"></thead>
           <tbody id="TablaDetalle"></tbody>
@@ -64,33 +63,41 @@
       </div>
     </div>
 
-    <!-- The Modal -->
+    <!-- Modal para compra y mostrar algunos detalles -->
     <div class="modal" id="modal">
       <div class="modal-dialog">
         <div class="modal-content">
           <!-- Modal Header -->
           <div class="modal-header">
             <h4 id="titulomodal" class="modal-title">Modal Heading</h4>
-
           </div>
 
           <!-- Modal body -->
           <div class="modal-body">
-            <div id=modalcontenido>
+            <div id="modalcontenido">
               <p id="Producto"></p>
             </div>
           </div>
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <div id="iconbar" class="icon-bar">
-            </div>
+            <div id="iconbar" class="icon-bar"></div>
             <button type="button" class="close" data-dismiss="modal">
               &times;
             </button>
           </div>
         </div>
       </div>
+    </div>
+
+    <!--Alertas-->
+
+    <div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';"
+        >&times;</span
+      >
+      <strong>Danger!</strong> Indicates a dangerous or potentially negative
+      action.
     </div>
 
     <!--Scripts-->
@@ -101,19 +108,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
     <script>
+      //Para manejo del modal
       // Get the modal
       var modal = document.getElementById("modal");
-      
-           
+
       // Get the <span> element that closes the modal
       var span = document.getElementsByClassName("close")[0];
-     
-     
+
       // When the user clicks on <span> (x), close the modal
-      span.onclick = function() {
+      span.onclick = function () {
         modal.style.display = "none";
-      }
-      
-      </script>
+      };
+    </script>
   </body>
 </html>

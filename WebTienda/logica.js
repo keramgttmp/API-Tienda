@@ -9,6 +9,8 @@ function fVerCategoria() {
       /*Formatea el encabezado de la tabla*/
       var vTitulo = document.querySelector("#Titulo");
       vTitulo.textContent = "Listado de Categorías disponibles en la Tienda.";
+      var vTextoGeneral = document.querySelector("#textogeneral");
+      vTextoGeneral.textContent = "Desde esta opción podrá visualizar las categorías habilitadas y navegar a los productos contenidos en la misma."
       var vTablaEncabezado = document.querySelector("#TablaEncabezado");
       vTablaEncabezado.innerHTML =
         "<tr><th>Id</th><th>Descripción</th><th>Fec.Creación</th><th>Fec.Actualiz.</th><th>Acción</th></tr>";
@@ -82,6 +84,9 @@ function fVerProducto() {
       /*Formatea el encabezado de la tabla*/
       var vTitulo = document.querySelector("#Titulo");
       vTitulo.textContent = "Listado de Productos disponibles en la Tienda.";
+      var vTextoGeneral = document.querySelector("#textogeneral");
+      vTextoGeneral.textContent = "Desde esta opción podrá ver el listado de Productos y comprar el item que sea de su interés."
+
       var vTablaEncabezado = document.querySelector("#TablaEncabezado");
       vTablaEncabezado.innerHTML =
         "<tr><th>Id</th><th>Descripción</th><th>Fec.Creación</th><th>Fec.Actualiz.</th><th>Acción</th></tr>";
@@ -137,6 +142,143 @@ function fVerProducto() {
           ">Ver Detalle</button>" +
           "</tr>";
       }
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    .then(function () {});
+}
+
+function fVerOrdenes() {
+  axios
+    .get("https://localhost:44318/api/Orden")
+    .then(function (response) {
+      console.log(response);
+      console.log(response.data);
+      var vFiltro = document.querySelector("#filtro");
+      $(vFiltro).hide();
+      /*Formatea el encabezado de la tabla*/
+      var vTitulo = document.querySelector("#Titulo");
+      vTitulo.textContent = "Listado de Órdenes ingresadas en la Tienda.";
+      var vTextoGeneral = document.querySelector("#textogeneral");
+      vTextoGeneral.textContent = "Puede consultar el listado general de las órdenes que han sido emitidas desde nuestra Tienda en el proceso de compra."
+      var vTablaEncabezado = document.querySelector("#TablaEncabezado");
+      vTablaEncabezado.innerHTML =
+        "<tr><th>Id</th><th>ClienteId</th><th>Fec.Orden</th><th>Monto</th><th>Acción</th></tr>";
+
+      /*Llena el detalle de la tabla*/
+      var vTabla = document.querySelector("#TablaDetalle");
+      vTabla.innerHTML = "";
+      for (let vItem of response.data) {
+        var vFechaActualizacion = vItem.fechaActualizacion;
+        if (vFechaActualizacion == null) {
+          vFechaActualizacion = "";
+        }
+
+        vTabla.innerHTML +=
+          "<tr>" +
+          "<th>" +
+          vItem.id +
+          "</th>" +
+          "<th>" +
+          vItem.clienteId +
+          "-CLIENTE" +
+          "</th>" +
+          "<th>" +
+          vItem.fecha +
+          "</th>" +
+          "<th>" +
+          vItem.montoTotal +
+          "</th>" +
+          "<th>" +
+          "<button class=" +
+          String.fromCharCode(34) +
+          "btn btn-dark" +
+          String.fromCharCode(34) +
+          " onclick=" +
+          String.fromCharCode(34) +
+          "fVerDetalleOrden(" +
+          vItem.id +
+          ")" +
+          String.fromCharCode(34) +
+          ">Ver Detalle</button>" +
+          "</tr>";
+
+        //Busca el cliente para mostrarlo
+        axios
+          .get(
+            "https://localhost:44318/api/Cliente/" + vItem.clienteId
+          )
+          .then(function (response) {
+            var vNombreCliente = response.data.nombre + " "+ response.data.primerApellido +" "+response.data.segundoApellido;
+            vTabla.innerHTML = vTabla.innerHTML.replace(
+              "CLIENTE",
+              vNombreCliente
+            );
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .then(function () {});
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+    .then(function () {});
+}
+
+//Muestra los productos filtrado por el id, dentro de una modal
+function fVerDetalleOrden(pOrdenId) {
+  axios
+    .get("https://localhost:44318/api/DetalleOrden/" + pOrdenId)
+    .then(function (response) {
+      var vComillas = String.fromCharCode(34);
+      var vModal = document.getElementById("modal");
+      var vIconBar = document.getElementById("iconbar");
+      modal.style.display = "block";
+      var vTituloModal = document.getElementById("titulomodal");
+      vTituloModal.innerText = "Detalle de orden #" + response.data.ordenId;
+      var vContenidoModal = document.getElementById("modalcontenido");
+      var vDescripcionProducto = "";
+      vContenidoModal.innerHTML =
+        "<ul class=" +
+        vComillas +
+        "price" +
+        vComillas +
+        ">" +
+        "<li class=" +
+        vComillas +
+        "grey" +
+        vComillas +
+        ">Artículo " +
+        response.data.productoId +
+        "-Descripcion" +
+        "</li>" +
+        "<li>Cant.Solicitada " +
+        response.data.cantidadDetalle +
+        "</li>" +
+        "<li>Precio detalle $" +
+        response.data.precioDetalle +
+        "</li>" +
+        "</ul>";
+
+      /*limpia barra de íconos del footer en la modal*/
+      vIconBar.innerHTML = "";
+      //Busca el producto para mostrarlo
+      axios
+        .get("https://localhost:44318/api/Producto/" + response.data.productoId)
+        .then(function (response) {
+          vDescripcionProducto = response.data.descripcion;
+          vContenidoModal.innerHTML = vContenidoModal.innerHTML.replace(
+            "Descripcion",
+            vDescripcionProducto
+          );
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .then(function () {});
     })
     .catch(function (error) {
       console.log(error);
@@ -308,7 +450,11 @@ function fVerProductoPorId(pProductoId) {
         vComillas +
         " onclick=" +
         vComillas +
-        "fComprarProducto()" +
+        "fComprarProducto(" +
+        pProductoId +
+        "," +
+        response.data.precio +
+        ")" +
         vComillas +
         " ><i class=" +
         vComillas +
@@ -318,22 +464,10 @@ function fVerProductoPorId(pProductoId) {
         vComillas +
         "true" +
         vComillas +
-        "></i> Comprar</i></a>"; /* +
-        "<a href=" +
-        vComillas +
-        "#" +
-        vComillas +
-        " onclick="+
-        vComillas +"fVerCliente()"+
-        vComillas +" ><i class=" +
-        vComillas +
-        "fa fa-commenting" +
-        vComillas +
-        " aria-hidden=" +
-        vComillas +
-        "true" +
-        vComillas +
-        "></i> Comentar </i></a>";*/
+        "></i> Comprar</i></a>";
+        
+        //asigno por defecto el valor de uno.
+        $("#cantidad").val(1);
     })
     .catch(function (error) {
       console.log(error);
@@ -350,6 +484,9 @@ function fVerCliente() {
       /*Formatea el encabezado de la tabla*/
       var vTitulo = document.querySelector("#Titulo");
       vTitulo.textContent = "Listado de Clientes de la Tienda.";
+      var vTextoGeneral = document.querySelector("#textogeneral");
+      vTextoGeneral.textContent = "Desde esta opción podrá consultar los clientes registros y editar sus propiedades."
+
       var vTablaEncabezado = document.querySelector("#TablaEncabezado");
       vTablaEncabezado.innerHTML =
         "<tr><th>Id</th><th>Nombre</th><th>Fec.Creación</th><th>Fec.Actualiz.</th><th>Acción</th></tr>";
@@ -431,47 +568,59 @@ function getByIdRequest() {
     .then(function () {});
 }
 
-function fComprarProducto() {
+function fComprarProducto(pProductoId, pPrecio) {
   var vNumeroOrden = 0;
-  //Post del encabezado de la orden
-  axios
-    .post("https://localhost:44318/api/Orden", {
-        "fecha": "2020-08-29T04:41:28.227Z",
-        "clienteId": 2,
-        "montoTotal": 2500,
-        "estado": "A",
-        "fechaCreacion": "2020-08-29T04:41:28.227Z"    
-    })
-    .then(function (response) {
-      console.log(response);
-      vNumeroOrden = response.data.id;
-      console.log("1 ORden creada " + vNumeroOrden);
-      
-      // Post del detalle de la orden
-      axios
-        .post("https://localhost:44318/api/DetalleOrden", {
-          
-            "ordenId": vNumeroOrden,
-            "productoId": 2,
-            "cantidadDetalle": 1,
-            "precioDetalle": 2500,
-            "fechaCreacion": "2020-08-29T04:54:01.373Z"
-                })
-        .then(function (response) {
-          console.log(response);
-          vNumeroOrden = response.data.id;
-          console.log("2 ORden creada " + vNumeroOrden);
-        })
-        .catch(function (error) {
-          console.log(error);
-        })
-        .then(function () {});
-      /**/
-    })
-    .catch(function (error) {
-      console.log(error.message);
-    })
-    .then(function () {});
+  var vPrecioTotal = 0;
+  var vCantidad = $("#cantidad").val();
+  if (Number(vCantidad) >= 1 && !vCantidad == "") {
+    var vFecha = new Date().toISOString().substr(0, 19);
+    console.log(vFecha);
+    vPrecioTotal = pPrecio * vCantidad;
+    //Post del encabezado de la orden
+    axios
+      .post("https://localhost:44318/api/Orden", {
+        fecha: "2020-08-29T04:41:28.227Z",
+        clienteId: 2,
+        montoTotal: vPrecioTotal,
+        estado: "A",
+        fechaCreacion: vFecha,
+      })
+      .then(function (response) {
+        console.log(response);
+        vNumeroOrden = response.data.id;
+        console.log("1 ORden creada " + vNumeroOrden);
+
+        // Post del detalle de la orden
+        axios
+          .post("https://localhost:44318/api/DetalleOrden", {
+            ordenId: vNumeroOrden,
+            productoId: pProductoId,
+            cantidadDetalle: Number(vCantidad),
+            precioDetalle: vPrecioTotal,
+            fechaCreacion: vFecha,
+          })
+          .then(function (response) {
+            console.log(response);
+            console.log("2 Detalle orden creada " + response.data.id);
+            alert("Se creó la orden de compra " + vNumeroOrden);
+            var vModal = document.getElementById("modal");
+            modal.style.display = "none";
+          })
+          .catch(function (error) {
+            console.log(error);
+            alert("Hubo un error al crear el detalle de la compra.");
+          })
+          .then(function () {});
+        /**/
+      })
+      .catch(function (error) {
+        console.log(error.message);
+        alert("Hubo un error al crear la orden de la compra.");
+      })
+      .then(function () {});
+  } else {
+    alert("La cantidad debe ser mayor a 0");
+  }
 }
 
 function postRequest() {

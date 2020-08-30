@@ -49,7 +49,7 @@ namespace APITienda.Repository
 
         public DetalleOrden GetDetalle(int id)
         {
-            return _DbContext.DetalleOrden.FirstOrDefault(c => c.Id == id);
+            return _DbContext.DetalleOrden.FirstOrDefault(c => c.OrdenId == id);
         }
 
         public bool Guardar()

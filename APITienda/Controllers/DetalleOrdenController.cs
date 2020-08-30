@@ -16,13 +16,15 @@ namespace APITienda.Controllers
     public class DetalleOrdenController : Controller
     {
         private readonly IDetalleOrdenRepository _detalleordenRepository;
+        private readonly IProductoRepository _productoRepository;
 
         //instanciamos el mapper para no acceder el modelo directamente
         private readonly IMapper _detalleordenMapper;
 
-        public DetalleOrdenController(IDetalleOrdenRepository detalleordenRepository, IMapper detalleordenMapper)
+        public DetalleOrdenController(IDetalleOrdenRepository detalleordenRepository, IProductoRepository productoRepository, IMapper detalleordenMapper)
         {
             _detalleordenRepository = detalleordenRepository;
+            _productoRepository = productoRepository;
             _detalleordenMapper = detalleordenMapper;
         }
 
@@ -85,6 +87,14 @@ namespace APITienda.Controllers
                 return StatusCode(404, ModelState);
             }
 
+            //Validamos si el producto existe
+            if (!_productoRepository.ExisteProducto(detalleordenDto.ProductoId))
+            {
+                //Carga el mensaje error y lo devuelve
+                ModelState.AddModelError("", $"El producto con el id {detalleordenDto.ProductoId} no existe");
+                return StatusCode(404, ModelState);
+            }
+
             //Uso el Mapper pero en este caso de forma inversa
             var detalleorden = _detalleordenMapper.Map<DetalleOrden>(detalleordenDto);
 
@@ -93,6 +103,17 @@ namespace APITienda.Controllers
                 //Carga el mensaje error y lo devuelve
                 ModelState.AddModelError("", $"Algo salió mal guardando el registro {detalleorden.Id}");
                 return StatusCode(404, ModelState);
+            }
+
+            //Actualizamos la cantida de los productos disponibles
+            //buscamos el producto y lo enviamos a actualizar
+            var itemProducto = _productoRepository.GetProducto(detalleorden.ProductoId);
+            itemProducto.Cantidad = itemProducto.Cantidad - detalleorden.CantidadDetalle;
+            if (!_productoRepository.Actualizar(itemProducto))
+            {
+                //carga el mensaje de error y lo devuelve
+                ModelState.AddModelError("", $"Algo salió mal al modificar el registro {itemProducto.Descripcion}");
+                return StatusCode(500, ModelState);
             }
 
             //devolvemos el ok, pero indicando cuál es el último registro creado de la siguiente forma usando el GetOrden
