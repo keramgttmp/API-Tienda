@@ -32,28 +32,24 @@
         <h1 id="Titulo">Listado de las categorías disponibles en la tienda.</h1>
         <div id="filtro">
           <div class="form-group">
-            <label for="nombre"
+            <label for="filtrotexto"
               >Puede realizar una búsqueda mas específica filtrando por la
               descripción de la categoría.</label
             >
             <input
               type="text"
               class="form-control"
-              name="nombre"
-              id="nombre"
-              placeholder="Ingrese su nombre"
+              name="filtrotexto"
+              id="filtrotexto"
+              placeholder="Ingrese filtro para búsqueda"
             />
           </div>
-          <button class="btn btn-dark" onclick="fVerCategoria()">
+          <button class="btn btn-dark" onclick="fVerCategoriaPorDescripcion()">
             Aplicar filtro
           </button>
         </div>
         <p id="textogeneral">
-          Some text to enable scrolling.. Lorem ipsum dolor sit amet, illum
-          definitiones no quo, maluisset concludaturque et eum, altera fabulas
-          ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum.
-          Affert laboramus repudiandae nec et. Inciderint efficiantur his ad.
-          Eum no molestiae voluptatibus.
+          
         </p>
         <!--Inicio de Tabla-->
         <table class="container table table-striped">
@@ -90,7 +86,7 @@
       </div>
     </div>
 
-    <!--Alertas-->
+    <!--Alertas
 
     <div class="alert">
       <span class="closebtn" onclick="this.parentElement.style.display='none';"
@@ -98,7 +94,7 @@
       >
       <strong>Danger!</strong> Indicates a dangerous or potentially negative
       action.
-    </div>
+    </div>-->
 
     <!--Scripts-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

@@ -10,7 +10,8 @@ function fVerCategoria() {
       var vTitulo = document.querySelector("#Titulo");
       vTitulo.textContent = "Listado de Categorías disponibles en la Tienda.";
       var vTextoGeneral = document.querySelector("#textogeneral");
-      vTextoGeneral.textContent = "Desde esta opción podrá visualizar las categorías habilitadas y navegar a los productos contenidos en la misma."
+      vTextoGeneral.textContent =
+        "Desde esta opción podrá visualizar las categorías habilitadas y navegar a los productos contenidos en la misma.";
       var vTablaEncabezado = document.querySelector("#TablaEncabezado");
       vTablaEncabezado.innerHTML =
         "<tr><th>Id</th><th>Descripción</th><th>Fec.Creación</th><th>Fec.Actualiz.</th><th>Acción</th></tr>";
@@ -73,6 +74,90 @@ function fVerCategoria() {
     .then(function () {});
 }
 
+function fVerCategoriaPorDescripcion() {
+  var vFiltroTexto = document.querySelector("#filtrotexto");
+  if ($(vFiltroTexto).val() == "") {
+    fVerCategoria();
+  } else {
+    axios
+      .get(
+        "https://localhost:44318/api/Categoria/GetCategoriaPorDescripcion?descripcion=" +
+        $(vFiltroTexto).val()
+      )
+      .then(function (response) {
+        console.log(response);
+        console.log(response.data);
+        var vFiltro = document.querySelector("#filtro");
+        $(vFiltro).show();
+        /*Formatea el encabezado de la tabla*/
+        var vTitulo = document.querySelector("#Titulo");
+        vTitulo.textContent = "Listado de Categorías disponibles en la Tienda.";
+        var vTextoGeneral = document.querySelector("#textogeneral");
+        vTextoGeneral.textContent =
+          "Desde esta opción podrá visualizar las categorías habilitadas y navegar a los productos contenidos en la misma.";
+        var vTablaEncabezado = document.querySelector("#TablaEncabezado");
+        vTablaEncabezado.innerHTML =
+          "<tr><th>Id</th><th>Descripción</th><th>Fec.Creación</th><th>Fec.Actualiz.</th><th>Acción</th></tr>";
+
+        /*Llena el detalle de la tabla*/
+        var vTabla = document.querySelector("#TablaDetalle");
+        vTabla.innerHTML = "";
+        for (let vItem of response.data) {
+          console.log(vItem.descripcion);
+          var vFechaActualizacion = vItem.fechaActualizacion;
+          if (vFechaActualizacion == null) {
+            vFechaActualizacion = "";
+          }
+
+          console.log(
+            "<button class=" +
+              String.fromCharCode(34) +
+              "btn btn-dark" +
+              String.fromCharCode(34) +
+              " onclick=" +
+              String.fromCharCode(34) +
+              "VerArticulosPorCategoria(" +
+              vItem.id +
+              ")" +
+              String.fromCharCode(34) +
+              ">Modificar</button>"
+          );
+          vTabla.innerHTML +=
+            "<tr>" +
+            "<th>" +
+            vItem.id +
+            "</th>" +
+            "<th>" +
+            vItem.descripcion +
+            "</th>" +
+            "<th>" +
+            vItem.fechaCreacion +
+            "</th>" +
+            "<th>" +
+            vFechaActualizacion +
+            "</th>" +
+            "<th>" +
+            "<button class=" +
+            String.fromCharCode(34) +
+            "btn btn-dark" +
+            String.fromCharCode(34) +
+            " onclick=" +
+            String.fromCharCode(34) +
+            "fVerProductosPorCategoria(" +
+            vItem.id +
+            ")" +
+            String.fromCharCode(34) +
+            ">Ver Productos</button>" +
+            "</tr>";
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(function () {});
+  }
+}
+
 function fVerProducto() {
   axios
     .get("https://localhost:44318/api/Producto")
@@ -85,7 +170,8 @@ function fVerProducto() {
       var vTitulo = document.querySelector("#Titulo");
       vTitulo.textContent = "Listado de Productos disponibles en la Tienda.";
       var vTextoGeneral = document.querySelector("#textogeneral");
-      vTextoGeneral.textContent = "Desde esta opción podrá ver el listado de Productos y comprar el item que sea de su interés."
+      vTextoGeneral.textContent =
+        "Desde esta opción podrá ver el listado de Productos y comprar el item que sea de su interés.";
 
       var vTablaEncabezado = document.querySelector("#TablaEncabezado");
       vTablaEncabezado.innerHTML =
@@ -161,7 +247,8 @@ function fVerOrdenes() {
       var vTitulo = document.querySelector("#Titulo");
       vTitulo.textContent = "Listado de Órdenes ingresadas en la Tienda.";
       var vTextoGeneral = document.querySelector("#textogeneral");
-      vTextoGeneral.textContent = "Puede consultar el listado general de las órdenes que han sido emitidas desde nuestra Tienda en el proceso de compra."
+      vTextoGeneral.textContent =
+        "Puede consultar el listado general de las órdenes que han sido emitidas desde nuestra Tienda en el proceso de compra.";
       var vTablaEncabezado = document.querySelector("#TablaEncabezado");
       vTablaEncabezado.innerHTML =
         "<tr><th>Id</th><th>ClienteId</th><th>Fec.Orden</th><th>Monto</th><th>Acción</th></tr>";
@@ -206,11 +293,14 @@ function fVerOrdenes() {
 
         //Busca el cliente para mostrarlo
         axios
-          .get(
-            "https://localhost:44318/api/Cliente/" + vItem.clienteId
-          )
+          .get("https://localhost:44318/api/Cliente/" + vItem.clienteId)
           .then(function (response) {
-            var vNombreCliente = response.data.nombre + " "+ response.data.primerApellido +" "+response.data.segundoApellido;
+            var vNombreCliente =
+              response.data.nombre +
+              " " +
+              response.data.primerApellido +
+              " " +
+              response.data.segundoApellido;
             vTabla.innerHTML = vTabla.innerHTML.replace(
               "CLIENTE",
               vNombreCliente
@@ -465,9 +555,9 @@ function fVerProductoPorId(pProductoId) {
         "true" +
         vComillas +
         "></i> Comprar</i></a>";
-        
-        //asigno por defecto el valor de uno.
-        $("#cantidad").val(1);
+
+      //asigno por defecto el valor de uno.
+      $("#cantidad").val(1);
     })
     .catch(function (error) {
       console.log(error);
@@ -485,7 +575,8 @@ function fVerCliente() {
       var vTitulo = document.querySelector("#Titulo");
       vTitulo.textContent = "Listado de Clientes de la Tienda.";
       var vTextoGeneral = document.querySelector("#textogeneral");
-      vTextoGeneral.textContent = "Desde esta opción podrá consultar los clientes registros y editar sus propiedades."
+      vTextoGeneral.textContent =
+        "Desde esta opción podrá consultar los clientes registros y editar sus propiedades.";
 
       var vTablaEncabezado = document.querySelector("#TablaEncabezado");
       vTablaEncabezado.innerHTML =

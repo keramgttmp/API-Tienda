@@ -60,6 +60,12 @@ namespace APITienda.Repository
             return _DbContext.Categoria.FirstOrDefault(c => c.Id == id);
         }
 
+
+        public ICollection<Categoria> GetCategoriaPorDescripcion(string descripcion)
+        {
+            return _DbContext.Categoria.Where(c => c.Descripcion.ToLower().Trim().Contains(descripcion.ToLower().Trim())).ToList();
+        }
+
         public bool Guardar()
         {
             return _DbContext.SaveChanges() >= 0 ? true : false;

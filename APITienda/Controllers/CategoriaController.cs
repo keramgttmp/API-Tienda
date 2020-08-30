@@ -69,6 +69,23 @@ namespace APITienda.Controllers
 
         }
 
+        [HttpGet("GetCategoriaPorDescripcion")]
+        public IActionResult GetCategoriaPorDescripcion( string descripcion)
+        {
+
+            var listaCategoria = _categoriaRepository.GetCategoriaPorDescripcion(descripcion);
+            //usamos el DTO
+            var listaCategoriaDto = new List<CategoriaDto>();
+
+            foreach (var lista in listaCategoria)
+            {
+                //Cargamos la lista DTO con los datos según el mapper realizado en ModelsMapper 
+                //para la entidad Categoria
+                listaCategoriaDto.Add(_categoriaMapper.Map<CategoriaDto>(lista));
+            }
+            return Ok(listaCategoriaDto);
+        }
+
         [HttpPost]
         public IActionResult Crear([FromBody] CategoriaDto categoriaDto)
         // se indica FromBody para que la estructura que se requiere en el cuerpo de la petición

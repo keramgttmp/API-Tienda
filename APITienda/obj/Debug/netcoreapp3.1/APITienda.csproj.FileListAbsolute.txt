@@ -120,7 +120,6 @@ C:\Cenfotec\CursoRESTfulWebAPIsNETCore\Proyecto\APITienda\bin\Debug\netcoreapp3.
 C:\Cenfotec\CursoRESTfulWebAPIsNETCore\Proyecto\APITienda\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Cenfotec\CursoRESTfulWebAPIsNETCore\Proyecto\APITienda\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Cenfotec\CursoRESTfulWebAPIsNETCore\Proyecto\APITienda\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Cenfotec\CursoRESTfulWebAPIsNETCore\Proyecto\APITienda\obj\Debug\netcoreapp3.1\APITienda.csprojAssemblyReference.cache
 C:\Cenfotec\CursoRESTfulWebAPIsNETCore\Proyecto\APITienda\obj\Debug\netcoreapp3.1\APITienda.AssemblyInfoInputs.cache
 C:\Cenfotec\CursoRESTfulWebAPIsNETCore\Proyecto\APITienda\obj\Debug\netcoreapp3.1\APITienda.AssemblyInfo.cs
 C:\Cenfotec\CursoRESTfulWebAPIsNETCore\Proyecto\APITienda\obj\Debug\netcoreapp3.1\APITienda.csproj.CoreCompileInputs.cache

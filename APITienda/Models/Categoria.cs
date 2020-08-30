@@ -19,5 +19,10 @@ namespace APITienda.Models
         public DateTime FechaCreacion{ get; set; }
 
         public DateTime? FechaActualizacion { get; set; }
+
+        public static explicit operator Categoria(List<Categoria> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

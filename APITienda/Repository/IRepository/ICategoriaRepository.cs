@@ -13,6 +13,8 @@ namespace APITienda.Repository.IRepository
 
         Categoria GetCategoria(int id);
 
+        ICollection<Categoria> GetCategoriaPorDescripcion(string descripcion);
+
         bool ExisteCategoria(string descripcion);
 
         bool ExisteCategoria(int id);
