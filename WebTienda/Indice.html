@@ -48,9 +48,7 @@
             Aplicar filtro
           </button>
         </div>
-        <p id="textogeneral">
-          
-        </p>
+        <p id="textogeneral"></p>
         <!--Inicio de Tabla-->
         <table class="container table table-striped">
           <thead id="TablaEncabezado" class="thead-dark"></thead>
@@ -79,6 +77,78 @@
           <div class="modal-footer">
             <div id="iconbar" class="icon-bar"></div>
             <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para actualizar el cliente -->
+    <div class="modal" id="modalcliente">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 id="titulomodalcliente" class="modal-title">Modal Heading</h4>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div id="modalclientecontenido">
+              <p>Registre la información que desea actualizar.</p>
+              <!--Dato para actualizar el cliente-->
+              <label for="nombre">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nombre"
+                id="nombre"
+                placeholder="Ingrese el nombre del cliente"
+              />
+              <hr>
+              <label for="primerapellido">Primer Apellido</label>
+              <input
+                type="text"
+                class="form-control"
+                name="primerapellido"
+                id="primerapellido"
+                placeholder="Ingrese el primer apellido del cliente"
+              />
+              <hr>
+              <label for="segundoapellido">Segundo Apellido</label>
+              <input
+                type="text"
+                class="form-control"
+                name="segundoapellido"
+                id="segundoapellido"
+                placeholder="Ingrese el segundo apellido del cliente"
+              />
+              <hr>
+              <label for="correoelectronico">Correo electrónico</label>
+              <input
+                type="text"
+                class="form-control"
+                name="correoelectronico"
+                id="correoelectronico"
+                placeholder="Ingrese el correo electrónico del cliente"
+              />
+              <hr>
+              <label for="celular">Celular</label>
+              <input
+                type="text"
+                class="form-control"
+                name="celular"
+                id="celular"
+                placeholder="Ingrese el celular del cliente"
+              />
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <div id="iconbarcliente" class="icon-bar"></div>
+            <button id="closemodalcliente" type="button" class="close" data-dismiss="modal">
               &times;
             </button>
           </div>
@@ -115,6 +185,12 @@
       span.onclick = function () {
         modal.style.display = "none";
       };
+
+      var spanclose = document.getElementById("closemodalcliente");
+      spanclose.onclick = function () {
+        modalcliente.style.display = "none";
+      };
+
     </script>
   </body>
 </html>

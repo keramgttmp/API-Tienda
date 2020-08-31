@@ -82,7 +82,7 @@ function fVerCategoriaPorDescripcion() {
     axios
       .get(
         "https://localhost:44318/api/Categoria/GetCategoriaPorDescripcion?descripcion=" +
-        $(vFiltroTexto).val()
+          $(vFiltroTexto).val()
       )
       .then(function (response) {
         console.log(response);
@@ -630,28 +630,48 @@ function fVerCliente() {
     .then(function () {});
 }
 
-function getFilteredRequest() {
+//Muestra los productos filtrado por el id, dentro de una modal
+function fEditarCliente(pClienteId) {
   axios
-    .get("http://localhost:8080/item", {
-      params: {
-        filter: "myFilter",
-      },
-    })
+    .get("https://localhost:44318/api/Cliente/" + pClienteId)
     .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-    .then(function () {});
-}
+      var vComillas = String.fromCharCode(34);
+      var vModal = document.getElementById("modalcliente");
+      var vIconBar = document.getElementById("iconbarcliente");
+      vModal.style.display = "block";
+      var vTituloModal = document.getElementById("titulomodalcliente");
+      vTituloModal.innerText = "Actualización de datos del Cliente";
+      /*Inicializa los valores*/
+      $("#nombre").val(response.data.nombre);
+      $("#primerapellido").val(response.data.primerApellido);
+      $("#segundoapellido").val(response.data.segundoApellido);
+      $("#correoelectronico").val(response.data.correo);
+      $("#celular").val(response.data.celular);
+      /*arma el barra de íconos del footer en la modal*/
 
-function getByIdRequest() {
-  id = 10;
-  axios
-    .get("http://localhost:8080/item/" + id)
-    .then(function (response) {
-      console.log(response);
+      vIconBar.innerHTML = "";
+      vIconBar.innerHTML =
+        "<a href=" +
+        vComillas +
+        "#" +
+        vComillas +
+        " onclick=" +
+        vComillas +
+        "fActualizarCliente(" +
+        pClienteId +
+        ")" +
+        vComillas +
+        " ><i class=" +
+        vComillas +
+        "fa fa-pencil-square-o" +
+        vComillas +
+        " aria-hidden=" +
+        vComillas +
+        "true" +
+        vComillas +
+        "></i> Actualizar</i></a>";
+
+      //asigno por defecto el valor de uno.
     })
     .catch(function (error) {
       console.log(error);
@@ -670,11 +690,11 @@ function fComprarProducto(pProductoId, pPrecio) {
     //Post del encabezado de la orden
     axios
       .post("https://localhost:44318/api/Orden", {
-        fecha: "2020-08-29T04:41:28.227Z",
-        clienteId: 2,
-        montoTotal: vPrecioTotal,
-        estado: "A",
-        fechaCreacion: vFecha,
+        "fecha": "2020-08-29T04:41:28.227Z",
+        "clienteId": 2,
+        "montoTotal": vPrecioTotal,
+        "estado": "A",
+        "fechaCreacion": vFecha,
       })
       .then(function (response) {
         console.log(response);
@@ -684,11 +704,11 @@ function fComprarProducto(pProductoId, pPrecio) {
         // Post del detalle de la orden
         axios
           .post("https://localhost:44318/api/DetalleOrden", {
-            ordenId: vNumeroOrden,
-            productoId: pProductoId,
-            cantidadDetalle: Number(vCantidad),
-            precioDetalle: vPrecioTotal,
-            fechaCreacion: vFecha,
+            "ordenId": vNumeroOrden,
+            "productoId": pProductoId,
+            "cantidadDetalle": Number(vCantidad),
+            "precioDetalle": vPrecioTotal,
+            "fechaCreacion": vFecha,
           })
           .then(function (response) {
             console.log(response);
@@ -712,6 +732,36 @@ function fComprarProducto(pProductoId, pPrecio) {
   } else {
     alert("La cantidad debe ser mayor a 0");
   }
+}
+
+function fActualizarCliente(pClienteId) {
+  //Arma del encabezado de la actualización
+  var vnombre = $("#nombre").val();
+  var vprimerApellido = $("#primerapellido").val();
+  var vsegundoApellido = $("#segundoapellido").val();
+  var vcorreo = $("#correoelectronico").val();
+  var vcelular = $("#celular").val();
+
+  axios
+    .patch("https://localhost:44318/api/Cliente/" + pClienteId, {
+      "id": pClienteId,
+      "nombre": vnombre,
+      "primerApellido": vprimerApellido,
+      "segundoApellido": vsegundoApellido,
+      "correo": vcorreo,
+      "celular": vcelular
+    })
+    .then(function (response) {
+      alert("La información ha sido actualizada con éxito.");
+      var vModal = document.getElementById("modalcliente");
+      vModal.style.display = "None";
+      fVerCliente();
+    })
+    .catch(function (error) {
+      console.log(error.message);
+      alert("Hubo un error al actualizar el cliente.");
+    })
+    .then(function () {});
 }
 
 function postRequest() {
