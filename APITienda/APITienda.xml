@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>APITienda</name>
+    </assembly>
+    <members>
+        <member name="M:APITienda.Controllers.CategoriaController.GetCategoria">
+            <summary>
+            Obtiene todas las categorías de productos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.CategoriaController.GetCategoria(System.Int32)">
+            <summary>
+            Obtiene la categoría asociada a un id en particular
+            </summary>
+            <param name="categoriaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.CategoriaController.GetCategoriaPorDescripcion(System.String)">
+            <summary>
+            Obtiene una categoría con base en una descripción
+            </summary>
+            <param name="descripcion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.CategoriaController.Crear(APITienda.Models.Dtos.CategoriaDto)">
+            <summary>
+            Crea una categoria de producto
+            </summary>
+            <param name="categoriaDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.CategoriaController.Actualizar(System.Int32,APITienda.Models.Dtos.CategoriaDto)">
+            <summary>
+            Actualizar una categoría de producto que coincida con el id enviado
+            </summary>
+            <param name="categoriaId"></param>
+            <param name="categoriaDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.CategoriaController.Borrar(System.Int32)">
+            <summary>
+            Borra una categoría de producto que coincida con el id enviado
+            </summary>
+            <param name="categoriaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.Clientecontroller.GetCliente">
+            <summary>
+            Obtiene todos los clientes registrados
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.Clientecontroller.GetCliente(System.Int32)">
+            <summary>
+            Obtiene un cliente con base a un id
+            </summary>
+            <param name="clienteId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.Clientecontroller.Crear(APITienda.Models.Dtos.ClienteDto)">
+            <summary>
+            Crea un cliente
+            </summary>
+            <param name="clienteDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.Clientecontroller.ActualizarCliente(System.Int32,APITienda.Models.Dtos.ClienteDto)">
+            <summary>
+            Actualiza un cliente que coincida con un id
+            </summary>
+            <param name="clienteId"></param>
+            <param name="clienteDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.Clientecontroller.BorrarCliente(System.Int32)">
+            <summary>
+            Borra un cliente que coincida con un id
+            </summary>
+            <param name="clienteId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.DetalleOrdenController.GetDetalle">
+            <summary>
+            Obtiene todos los detalles de órdenes
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.DetalleOrdenController.GetOrden(System.Int32)">
+            <summary>
+            Obtiene los detalles de una orden en particular
+            </summary>
+            <param name="detalleordenId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.DetalleOrdenController.CrearDetalle(APITienda.Models.Dtos.DetalleOrdenDto)">
+            <summary>
+            Crea el detalle de una orden
+            </summary>
+            <param name="detalleordenDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.DetalleOrdenController.ActualizarDetalle(System.Int32,APITienda.Models.Dtos.DetalleOrdenDto)">
+            <summary>
+            Actualiza el detalle de una orden
+            </summary>
+            <param name="detalleordenId"></param>
+            <param name="detalleordenDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.OpinionProductoController.GetOpinionProducto">
+            <summary>
+            Obtiene todas las opiniones de los productos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.OpinionProductoController.GetOpinionProducto(System.Int32)">
+            <summary>
+            Obtiene una opinión con base en un id dado
+            </summary>
+            <param name="opinionproductoId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.OpinionProductoController.GetOpinionPorProducto(System.Int32)">
+            <summary>
+            Obtiene todos las opiniones de un producto
+            </summary>
+            <param name="productoId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.OpinionProductoController.Crear(APITienda.Models.Dtos.OpinionProductoDto)">
+            <summary>
+            Crea una opinión de un producto
+            </summary>
+            <param name="opinionproductoDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.OpinionProductoController.ActualizarOpinionProducto(System.Int32,APITienda.Models.Dtos.OpinionProductoDto)">
+            <summary>
+            Actualizar una opinión dada según un id
+            </summary>
+            <param name="opinionproductoId"></param>
+            <param name="opinionproductoDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.OpinionProductoController.BorrarOpinionProducto(System.Int32)">
+            <summary>
+            Borra una opinión dada según un id
+            </summary>
+            <param name="opinionproductoId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.OrdenController.GetOrden">
+            <summary>
+            Obtiene todas las órdenes
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.OrdenController.GetOrden(System.Int32)">
+            <summary>
+            Obtiene una orden según un id dado
+            </summary>
+            <param name="ordenId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.OrdenController.CrearOrden(APITienda.Models.Dtos.OrdenDto)">
+            <summary>
+            Crea una orden
+            </summary>
+            <param name="ordenDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.OrdenController.ActualizarOrden(System.Int32,APITienda.Models.Dtos.OrdenDto)">
+            <summary>
+            Actualizar una orden según un id dado
+            </summary>
+            <param name="ordenId"></param>
+            <param name="ordenDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.ProductoController.GetProducto">
+            <summary>
+            Obtiene todos los productos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.ProductoController.GetProducto(System.Int32)">
+            <summary>
+            Obtiene un producto según un id dado
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.ProductoController.ObtenerProductoPorCategoria(System.Int32)">
+            <summary>
+            Obtiene todos los productos asociados a una categoría
+            </summary>
+            <param name="categoriaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.ProductoController.Crear(APITienda.Models.Dtos.ProductoDto)">
+            <summary>
+            Crear un producto
+            </summary>
+            <param name="productoDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.ProductoController.ActualizarProducto(System.Int32,APITienda.Models.Dtos.ProductoDto)">
+            <summary>
+            Actualizar un producto
+            </summary>
+            <param name="id"></param>
+            <param name="productoDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APITienda.Controllers.ProductoController.BorrarProducto(System.Int32)">
+            <summary>
+            Borrar un producto
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

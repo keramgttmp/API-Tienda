@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using APITienda.Data;
 using APITienda.Models;
@@ -52,6 +54,10 @@ namespace APITienda
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Tienda", Version = "v1" });
+                //Se agrega para que aparezcan los comentarios añadidos en los controllers.
+                var archivoXmlComentarios = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var rutaApiComentarios = Path.Combine(AppContext.BaseDirectory, archivoXmlComentarios);
+                c.IncludeXmlComments(rutaApiComentarios);
             });
 
             //

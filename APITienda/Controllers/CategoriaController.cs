@@ -15,6 +15,7 @@ namespace APITienda.Controllers
     //se puede dejar así o cambiarlo por el nombre que en este caso sería CategoriaController.
     [Route("api/[controller]")]
     [ApiController]
+   
     public class CategoriaController : Controller //hereda del base pero lo dejamos solo Controller
     {
         private readonly ICategoriaRepository _categoriaRepository;
@@ -28,6 +29,10 @@ namespace APITienda.Controllers
             _categoriaMapper = categoriaMapper;
         }
 
+        /// <summary>
+        /// Obtiene todas las categorías de productos
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Produces(typeof(CategoriaDto))]
         public IActionResult GetCategoria()
@@ -45,7 +50,11 @@ namespace APITienda.Controllers
             return Ok(listaCategoriaDto);
         }
 
-
+        /// <summary>
+        /// Obtiene la categoría asociada a un id en particular
+        /// </summary>
+        /// <param name="categoriaId"></param>
+        /// <returns></returns>
         [HttpGet("{categoriaId:int}", Name = "GetCategoria")]
         //Se anota de esta forma porque si se deja solo HTTPGet salta el siguiente error:
         /*Microsoft.AspNetCore.Routing.Matching.AmbiguousMatchException: The request matched multiple endpoints. Matches: 
@@ -69,6 +78,11 @@ namespace APITienda.Controllers
 
         }
 
+        /// <summary>
+        /// Obtiene una categoría con base en una descripción
+        /// </summary>
+        /// <param name="descripcion"></param>
+        /// <returns></returns>
         [HttpGet("GetCategoriaPorDescripcion")]
         public IActionResult GetCategoriaPorDescripcion( string descripcion)
         {
@@ -86,6 +100,11 @@ namespace APITienda.Controllers
             return Ok(listaCategoriaDto);
         }
 
+        /// <summary>
+        /// Crea una categoria de producto
+        /// </summary>
+        /// <param name="categoriaDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Crear([FromBody] CategoriaDto categoriaDto)
         // se indica FromBody para que la estructura que se requiere en el cuerpo de la petición
@@ -119,6 +138,12 @@ namespace APITienda.Controllers
             return CreatedAtRoute("GetCategoria", new { categoriaId = categoria.Id }, categoria);
         }
 
+        /// <summary>
+        /// Actualizar una categoría de producto que coincida con el id enviado
+        /// </summary>
+        /// <param name="categoriaId"></param>
+        /// <param name="categoriaDto"></param>
+        /// <returns></returns>
         [HttpPatch("{categoriaId:int}", Name = "Actualizar")]
         public IActionResult Actualizar (int categoriaId, [FromBody] CategoriaDto categoriaDto)
         {
@@ -144,6 +169,11 @@ namespace APITienda.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Borra una categoría de producto que coincida con el id enviado
+        /// </summary>
+        /// <param name="categoriaId"></param>
+        /// <returns></returns>
         [HttpDelete("{categoriaId:int}", Name = "Borrar")]
         public IActionResult Borrar(int categoriaId)
         {

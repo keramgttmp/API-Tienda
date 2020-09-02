@@ -28,6 +28,10 @@ namespace APITienda.Controllers
             _opinionproductoMapper = opinionproductoMapper;
         }
 
+        /// <summary>
+        /// Obtiene todas las opiniones de los productos
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Produces(typeof(OpinionProductoDto))]
         public IActionResult GetOpinionProducto()
@@ -45,7 +49,11 @@ namespace APITienda.Controllers
             return Ok(listaOpinionProductoDto);
         }
 
-
+        /// <summary>
+        /// Obtiene una opinión con base en un id dado
+        /// </summary>
+        /// <param name="opinionproductoId"></param>
+        /// <returns></returns>
         [HttpGet("{opinionproductoId:int}", Name = "GetOpinionProducto")]
         //Se anota de esta forma porque si se deja solo HTTPGet salta el siguiente error:
         /*Microsoft.AspNetCore.Routing.Matching.AmbiguousMatchException: The request matched multiple endpoints. Matches: 
@@ -70,7 +78,11 @@ namespace APITienda.Controllers
         }
 
 
-        // [HttpGet("{productoId:int}", Name = "GetOpinionPorProducto")]
+        /// <summary>
+        /// Obtiene todos las opiniones de un producto
+        /// </summary>
+        /// <param name="productoId"></param>
+        /// <returns></returns>
         [HttpGet("BuscarPorProducto")]
         //Se anota de esta forma porque si se deja solo HTTPGet salta el siguiente error:
         /*Microsoft.AspNetCore.Routing.Matching.AmbiguousMatchException: The request matched multiple endpoints. Matches: 
@@ -92,6 +104,11 @@ namespace APITienda.Controllers
 
         }
 
+        /// <summary>
+        /// Crea una opinión de un producto
+        /// </summary>
+        /// <param name="opinionproductoDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Crear([FromBody] OpinionProductoDto opinionproductoDto)
         // se indica FromBody para que la estructura que se requiere en el cuerpo de la petición
@@ -125,6 +142,12 @@ namespace APITienda.Controllers
             return CreatedAtRoute("GetOpinionProducto", new { opinionproductoId = opinionproducto.Id }, opinionproducto);
         }
 
+        /// <summary>
+        /// Actualizar una opinión dada según un id
+        /// </summary>
+        /// <param name="opinionproductoId"></param>
+        /// <param name="opinionproductoDto"></param>
+        /// <returns></returns>
         [HttpPatch("{opinionproductoId:int}", Name = "ActualizarOpinionProducto")]
         public IActionResult ActualizarOpinionProducto (int opinionproductoId, [FromBody] OpinionProductoDto opinionproductoDto)
         {
@@ -150,6 +173,11 @@ namespace APITienda.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Borra una opinión dada según un id
+        /// </summary>
+        /// <param name="opinionproductoId"></param>
+        /// <returns></returns>
         [HttpDelete("{opinionproductoId:int}", Name = "BorrarOpinionProducto")]
         public IActionResult BorrarOpinionProducto(int opinionproductoId)
         {

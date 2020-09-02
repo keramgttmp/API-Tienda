@@ -28,6 +28,10 @@ namespace APITienda.Controllers
             _detalleordenMapper = detalleordenMapper;
         }
 
+        /// <summary>
+        /// Obtiene todos los detalles de órdenes
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Produces(typeof(DetalleOrdenDto))]
 
@@ -45,6 +49,11 @@ namespace APITienda.Controllers
             return Ok(listaDetalleDto);
         }
 
+        /// <summary>
+        /// Obtiene los detalles de una orden en particular
+        /// </summary>
+        /// <param name="detalleordenId"></param>
+        /// <returns></returns>
         [HttpGet("{detalleordenId:int}", Name = "GetDetalle")]
         //Se anota de esta forma porque si se deja solo HTTPGet salta el siguiente error:
         /*Microsoft.AspNetCore.Routing.Matching.AmbiguousMatchException: The request matched multiple endpoints. Matches: 
@@ -68,6 +77,11 @@ namespace APITienda.Controllers
 
         }
 
+        /// <summary>
+        /// Crea el detalle de una orden
+        /// </summary>
+        /// <param name="detalleordenDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult CrearDetalle([FromBody] DetalleOrdenDto detalleordenDto)
         // se indica FromBody para que la estructura que se requiere en el cuerpo de la petición
@@ -120,6 +134,12 @@ namespace APITienda.Controllers
             return CreatedAtRoute("GetDetalle", new { detalleordenId = detalleorden.Id }, detalleorden);
         }
 
+        /// <summary>
+        /// Actualiza el detalle de una orden
+        /// </summary>
+        /// <param name="detalleordenId"></param>
+        /// <param name="detalleordenDto"></param>
+        /// <returns></returns>
         [HttpPatch("{detalleordenId:int}", Name = "ActualizarDetalle")]
         public IActionResult ActualizarDetalle(int detalleordenId, [FromBody] DetalleOrdenDto detalleordenDto)
         {

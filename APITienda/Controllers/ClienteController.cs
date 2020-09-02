@@ -29,6 +29,10 @@ namespace APITienda.Controllers
             _clienteMapper = clienteMapper;
         }
 
+        /// <summary>
+        /// Obtiene todos los clientes registrados
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Produces(typeof(ClienteDto))]
         public IActionResult GetCliente()
@@ -47,6 +51,11 @@ namespace APITienda.Controllers
             return Ok(listaClienteDto);
         }
 
+        /// <summary>
+        /// Obtiene un cliente con base a un id
+        /// </summary>
+        /// <param name="clienteId"></param>
+        /// <returns></returns>
         [HttpGet("{clienteId:int}", Name = "GetCliente")]
         //Se anota de esta forma porque si se deja solo HTTPGet salta el siguiente error:
         /*Microsoft.AspNetCore.Routing.Matching.AmbiguousMatchException: The request matched multiple endpoints. Matches: 
@@ -68,6 +77,11 @@ namespace APITienda.Controllers
             return Ok(registroClienteDto);
         }
 
+        /// <summary>
+        /// Crea un cliente
+        /// </summary>
+        /// <param name="clienteDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Crear([FromBody] ClienteDto clienteDto)
         // se indica FromBody para que la estructura que se requiere 
@@ -102,6 +116,12 @@ namespace APITienda.Controllers
             return CreatedAtRoute("GetCliente", new { clienteId = cliente.Id }, cliente);
         }
 
+        /// <summary>
+        /// Actualiza un cliente que coincida con un id
+        /// </summary>
+        /// <param name="clienteId"></param>
+        /// <param name="clienteDto"></param>
+        /// <returns></returns>
         [HttpPatch("{clienteId:int}", Name = "ActualizarCliente")]
         public IActionResult ActualizarCliente(int clienteId, [FromBody] ClienteDto clienteDto)
         {
@@ -126,6 +146,11 @@ namespace APITienda.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Borra un cliente que coincida con un id
+        /// </summary>
+        /// <param name="clienteId"></param>
+        /// <returns></returns>
         [HttpDelete("{clienteId:int}", Name = "BorrarCliente")]
         public IActionResult BorrarCliente(int clienteId)
         {

@@ -26,6 +26,10 @@ namespace APITienda.Controllers
 
         }
 
+        /// <summary>
+        /// Obtiene todos los productos
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Produces(typeof(ProductoDto))]
         public IActionResult GetProducto()
@@ -44,6 +48,11 @@ namespace APITienda.Controllers
             return Ok(listaProductoDto);
         }
 
+        /// <summary>
+        /// Obtiene un producto según un id dado
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id:int}", Name = "GetProducto")]
         //Se anota de esta forma porque si se deja solo HTTPGet salta el siguiente error:
         /*Microsoft.AspNetCore.Routing.Matching.AmbiguousMatchException: The request matched multiple endpoints. Matches: 
@@ -67,6 +76,11 @@ namespace APITienda.Controllers
             return Ok(itemProductoDto);
         }
 
+        /// <summary>
+        /// Obtiene todos los productos asociados a una categoría
+        /// </summary>
+        /// <param name="categoriaId"></param>
+        /// <returns></returns>
         [HttpGet("BuscarPorCategoria")]
         public IActionResult ObtenerProductoPorCategoria(int categoriaId)
         {
@@ -83,6 +97,11 @@ namespace APITienda.Controllers
             return Ok(listaProductoDto);
         }
 
+        /// <summary>
+        /// Crear un producto
+        /// </summary>
+        /// <param name="productoDto"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Crear([FromBody] ProductoDto productoDto)
         // se indica FromBody para que la estructura que se requiere en el cuerpo de la petición
@@ -118,6 +137,12 @@ namespace APITienda.Controllers
             return CreatedAtRoute("GetProducto", new { Id = producto.Id }, producto);
         }
 
+        /// <summary>
+        /// Actualizar un producto
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="productoDto"></param>
+        /// <returns></returns>
         [HttpPatch("{id:int}", Name = "ActualizarProducto")]
         public IActionResult ActualizarProducto(int id, [FromBody] ProductoDto productoDto)
         { 
@@ -144,6 +169,11 @@ namespace APITienda.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Borrar un producto
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id:int}", Name = "BorrarProducto")]
         public IActionResult BorrarProducto(int id)
         {
